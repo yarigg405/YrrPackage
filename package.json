@@ -1,0 +1,12 @@
+{
+  "name": "com.yrr.yrrpackage",
+  "version": "0.2.0",
+  "displayName": "Yrr",
+  "description": "My Unity3d tools package",
+  "unity": "2021.3",
+  "author": {
+    "name": "Yaroslav Yanochkin",
+    "email": "south-nort@ya.ru",
+    "url": "https://www.unity3d.com"
+  }
+}
