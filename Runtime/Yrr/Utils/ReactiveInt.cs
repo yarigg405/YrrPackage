@@ -46,11 +46,11 @@ namespace Yrr.Utils
 
 
         public static bool operator ==(ReactiveInt a, ReactiveInt b)
-            => a.Value == b.Value;
+            => b != null && a != null && a.Value == b.Value;
 
 
         public static bool operator !=(ReactiveInt a, ReactiveInt b)
-            => a.Value != b.Value;
+            => b != null && a != null && a.Value != b.Value;
 
 
         public static bool operator <(ReactiveInt a, ReactiveInt b)
@@ -95,11 +95,11 @@ namespace Yrr.Utils
 
 
         public static bool operator ==(ReactiveInt a, int b)
-            => a.Value == b;
+            => a != null && a.Value == b;
 
 
         public static bool operator !=(ReactiveInt a, int b)
-            => a.Value != b;
+            => a != null && Math.Abs(a.Value - b) != 0;
 
         public static bool operator <(ReactiveInt a, int b)
          => a.Value < b;

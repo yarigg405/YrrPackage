@@ -46,11 +46,11 @@ namespace Yrr.Utils
 
 
         public static bool operator ==(ReactiveFloat a, ReactiveFloat b)
-            => a.Value == b.Value;
+            => b != null && a != null && Math.Abs(a.Value - b.Value) == 0f;
 
 
         public static bool operator !=(ReactiveFloat a, ReactiveFloat b)
-            => a.Value != b.Value;
+            => b != null && a != null && Math.Abs(a.Value - b.Value) != 0;
 
 
         public static bool operator <(ReactiveFloat a, ReactiveFloat b)
@@ -96,11 +96,11 @@ namespace Yrr.Utils
 
 
         public static bool operator ==(ReactiveFloat a, float b)
-            => a.Value == b;
+            => a != null && Math.Abs(a.Value - b) == 0;
 
 
         public static bool operator !=(ReactiveFloat a, float b)
-            => a.Value != b;
+            => a != null && Math.Abs(a.Value - b) != 0;
 
         public static bool operator <(ReactiveFloat a, float b)
            => a.Value < b;
@@ -144,11 +144,11 @@ namespace Yrr.Utils
 
 
         public static bool operator ==(ReactiveFloat a, int b)
-            => a.Value == b;
+            => a != null && Math.Abs(a.Value - b) == 0;
 
 
         public static bool operator !=(ReactiveFloat a, int b)
-            => a.Value != b;
+            => a != null && Math.Abs(a.Value - b) != 0;
 
         public static bool operator <(ReactiveFloat a, int b)
          => a.Value < b;
@@ -168,7 +168,7 @@ namespace Yrr.Utils
         public override bool Equals(object obj)
         {
             return obj is ReactiveFloat @float &&
-                   Value == @float.Value;
+                   Math.Abs(Value - @float.Value) == 0;
         }
 
         public override int GetHashCode()
