@@ -1,6 +1,5 @@
+using DG.Tweening;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 
 
 namespace Yrr.UI.Animators
