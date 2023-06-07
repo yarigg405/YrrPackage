@@ -13,6 +13,9 @@ namespace Yrr.UI
 
         private IScreen.ICallback _callback;
 
+
+        internal virtual void InitializeScreen() { }
+
         public void Show(object args, IScreen.ICallback callback)
         {
             ShowProcedure();

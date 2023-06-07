@@ -17,6 +17,7 @@ namespace Yrr.UI
             foreach (var screen in windows)
             {
                 screenStorage.AddScreen(screen.GetType(), screen);
+                screen.InitializeScreen();
                 screen.Hide();
             }
 
