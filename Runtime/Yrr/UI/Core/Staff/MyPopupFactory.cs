@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Yrr.UI.Core
 {
-    internal sealed class MyPopupFactory : AbstractFrameFactory<Type, UIScreen>
+    internal sealed class MyPopupFactory : AbstractFrameFactory<Type, UIModalScreen>
     {
         private Dictionary<Type, UIModalScreen> _modals = new();
 
@@ -19,7 +19,7 @@ namespace Yrr.UI.Core
             }
         }
 
-        protected override UIScreen GetModal(Type key)
+        protected override UIModalScreen GetModal(Type key)
         {
             return _modals[key];
             throw new Exception($"Screen {key} is not found!");

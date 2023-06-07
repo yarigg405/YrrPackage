@@ -1,6 +1,6 @@
 ﻿namespace Yrr.UI
 {
-    internal class UIModalScreen : UIScreen
+    public abstract class UIModalScreen : UIScreen
     {
     }
 }
