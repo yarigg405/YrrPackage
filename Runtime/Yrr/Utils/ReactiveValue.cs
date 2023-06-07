@@ -3,7 +3,7 @@
 
 namespace Yrr.Utils
 {
-    public abstract class ReactiveValue<T>
+    public class ReactiveValue<T>
     {
         private T _currentValue;
         public event Action<T> OnChange;
