@@ -8,15 +8,13 @@ namespace Yrr.UI.Core
         [SerializeField]
         private Transform container;
 
-        public TValue CreateScreen(TKey key)
+        public TValue GetScreen(TKey key)
         {
-            var prefab = GetPrefab(key);
-            var popup = Instantiate(prefab, container);
-            OnFrameCreated(popup);
-            return popup;
+            var modal = GetModal(key);  
+            return modal;
         }
 
-        protected abstract TValue GetPrefab(TKey key);
+        protected abstract TValue GetModal(TKey key);
 
         protected virtual void OnFrameCreated(TValue popup)
         {

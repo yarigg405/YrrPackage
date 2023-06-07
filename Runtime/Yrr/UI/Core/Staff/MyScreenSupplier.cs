@@ -10,7 +10,7 @@ namespace Yrr.UI.Core
 
         protected override UIScreen InstantiateFrame(Type key)
         {
-            return factory.CreateScreen(key);
+            return factory.GetScreen(key);
         }
     }
 }

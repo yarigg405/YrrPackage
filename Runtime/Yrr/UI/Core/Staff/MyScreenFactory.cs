@@ -8,7 +8,7 @@ namespace Yrr.UI.Core
         [SerializeField]
         private UIScreen[] screens;
 
-        protected override UIScreen GetPrefab(Type key)
+        protected override UIScreen GetModal(Type key)
         {
             foreach (var item in screens)
             {

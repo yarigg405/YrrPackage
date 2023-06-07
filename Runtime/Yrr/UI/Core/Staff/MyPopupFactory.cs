@@ -1,23 +1,27 @@
 using System;
-using UnityEngine;
+using System.Collections.Generic;
 
 
 namespace Yrr.UI.Core
 {
     internal sealed class MyPopupFactory : AbstractFrameFactory<Type, UIScreen>
     {
-        [SerializeField] private UIScreen[] popups;
+        private Dictionary<Type, UIModalScreen> _modals = new();
 
-        protected override UIScreen GetPrefab(Type key)
+        private void Start()
         {
-            foreach (var item in popups)
-            {
-                if (item.GetType() == key)
-                {
-                    return item;
-                }
-            }
+            var windows = transform.GetComponentsInChildren<UIModalScreen>(true);
 
+            foreach (var screen in windows)
+            {
+                _modals.Add(screen.GetType(), screen);
+                screen.Hide();
+            }
+        }
+
+        protected override UIScreen GetModal(Type key)
+        {
+            return _modals[key];
             throw new Exception($"Screen {key} is not found!");
         }
     }
