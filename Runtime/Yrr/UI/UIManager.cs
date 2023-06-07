@@ -43,5 +43,10 @@ namespace Yrr.UI
         {
             popupManager.ShowPopup(key, args);
         }
+
+        public void OpenModal(UIScreen screen)
+        {
+            popupManager.ShowPopup(screen.GetType());
+        }
     }
 }
