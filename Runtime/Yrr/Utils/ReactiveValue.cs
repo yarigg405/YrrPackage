@@ -8,7 +8,7 @@ namespace Yrr.Utils
         private T _currentValue;
         public event Action<T> OnChange;
 
-        protected ReactiveValue(T startValue)
+        public ReactiveValue(T startValue)
         {
             _currentValue = startValue;
         }
