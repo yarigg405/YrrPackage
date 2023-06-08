@@ -53,7 +53,8 @@ namespace Yrr.Utils
 
         public static T GetRandomItem<T>(this IEnumerable<T> list)
         {
-            return list.Count() < 1 ? default : list.ElementAt(Random.Range(0, list.Count()));
+            var enumerable = list as T[] ?? list.ToArray();
+            return enumerable.Any() ? enumerable.ElementAt(Random.Range(0, enumerable.Length)) : default;
         }
 
         public static T GetLast<T>(this List<T> list)

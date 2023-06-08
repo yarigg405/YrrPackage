@@ -2,12 +2,13 @@
 using UnityEngine;
 using Yrr.Utils;
 
+
 namespace Yrr.UI.Elements
 {
     public sealed class TickableText : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI tmp;
-        private string _preffix;
+        private string _prefix;
         private string _postfix;
         private float _targetCounter;
         private float _counter;
@@ -16,7 +17,7 @@ namespace Yrr.UI.Elements
 
         private void Update()
         {
-            if (_targetCounter == _counter) return;
+            if (_targetCounter.Equals(_counter)) return;
 
             var delta = Mathf.Abs(_targetCounter - _counter) * 2;
             if (delta < 10) delta = 10;
@@ -27,7 +28,7 @@ namespace Yrr.UI.Elements
 
         private void UpdateVisual()
         {
-            tmp.text = $"{_preffix}{_counter.ToIntString()}{_postfix}";
+            tmp.text = $"{_prefix}{_counter.ToIntString()}{_postfix}";
         }
 
         public void InitValue(int value)
@@ -42,9 +43,9 @@ namespace Yrr.UI.Elements
             _targetCounter = value;
         }
 
-        public void SetPreffix(string preffix)
+        public void SetPrefix(string prefix)
         {
-            _preffix = preffix;
+            _prefix = prefix;
         }
 
         public void SetPostfix(string postfix)

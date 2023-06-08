@@ -25,7 +25,7 @@ namespace Yrr.UI.Animators
             return seq;
         }
 
-        protected override void ResetToDefaul()
+        protected override void ResetToDefault()
         {
             root.localScale = Vector3.one;
         }

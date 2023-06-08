@@ -12,7 +12,7 @@ namespace Yrr.UI.Animators
 
         protected override Sequence GetSequence()
         {
-            ResetToDefaul();
+            ResetToDefault();
 
             var seq = DOTween.Sequence(gameObject).SetUpdate(true)
                  .Append(DOTween.To(() => canvasGroup.alpha, x => canvasGroup.alpha = x, 1f, 0.3f))
@@ -21,7 +21,7 @@ namespace Yrr.UI.Animators
             return seq;
         }
 
-        protected override void ResetToDefaul()
+        protected override void ResetToDefault()
         {
             canvasGroup.alpha = 0;
             rootTransform.localScale = Vector3.one * 1.5f;

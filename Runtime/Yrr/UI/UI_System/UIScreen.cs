@@ -1,25 +1,25 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
-using Yrr.UI.Core;
 
 
 namespace Yrr.UI
 {
-    public abstract class UIScreen : MonoBehaviour, IScreen
+    public abstract class UIScreen : MonoBehaviour
     {
         [Space]
         [SerializeField] private UnityEvent<object> onShow;
         [SerializeField] private UnityEvent onHide;
 
-        private IScreen.ICallback _callback;
-
+        private event Action ClosingCallback;
 
         internal virtual void InitializeScreen() { }
 
-        public void Show(object args, IScreen.ICallback callback)
+
+        public void Show(object args, Action callback)
         {
             ShowProcedure();
-            _callback = callback;
+            ClosingCallback = callback;
             OnShow(args);
             onShow?.Invoke(args);
         }
@@ -29,10 +29,15 @@ namespace Yrr.UI
             gameObject.SetActive(true);
         }
 
+        protected virtual void OnShow(object args) { }
+
+
         public void Hide()
         {
             OnHide();
             onHide?.Invoke();
+            ClosingCallback?.Invoke();
+            ClosingCallback = null;
             HidingProcedure();
         }
 
@@ -41,20 +46,6 @@ namespace Yrr.UI
             gameObject.SetActive(false);
         }
 
-        public void Close()
-        {
-            if (_callback != null)
-            {
-                _callback.OnClose(this);
-            }
-        }
-
-        protected virtual void OnShow(object args)
-        {
-        }
-
-        protected virtual void OnHide()
-        {
-        }
+        protected virtual void OnHide() { }
     }
 }

@@ -3,7 +3,6 @@ using System;
 using UnityEngine;
 
 
-
 namespace Yrr.UI.Animators
 {
     public abstract class TweenAnimator : MonoBehaviour
@@ -22,7 +21,7 @@ namespace Yrr.UI.Animators
 
             if (loop)
             {
-                _callback = () => Animate();
+                _callback = Animate;
             }
         }
 
@@ -42,7 +41,7 @@ namespace Yrr.UI.Animators
         public void StopAnimation()
         {
             DOTween.Kill(this);
-            ResetToDefaul();
+            ResetToDefault();
         }
 
         public void SetCallback(Action callback)
@@ -52,7 +51,7 @@ namespace Yrr.UI.Animators
 
         protected abstract Sequence GetSequence();
 
-        protected abstract void ResetToDefaul();
+        protected abstract void ResetToDefault();
 
     }
 }

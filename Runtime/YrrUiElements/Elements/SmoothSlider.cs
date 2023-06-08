@@ -2,6 +2,7 @@
 using UnityEngine.Events;
 using UnityEngine.UI;
 
+
 namespace Yrr.UI.Elements
 {
     public sealed class SmoothSlider : MonoBehaviour
@@ -10,9 +11,9 @@ namespace Yrr.UI.Elements
         private float _targetValue;
         private bool _isMoving;
 
-        public UnityEvent OnSliderMoveUp;
-        public UnityEvent OnSliderMoveDown;
-        public UnityEvent OnSliderStop;
+        public UnityEvent onSliderMoveUp;
+        public UnityEvent onSliderMoveDown;
+        public UnityEvent onSliderStop;
 
 
         private void Start()
@@ -23,15 +24,15 @@ namespace Yrr.UI.Elements
 
         private void Update()
         {
-            if (slider.value == _targetValue) return;
+            if (slider.value.Equals(_targetValue)) return;
 
             if (!_isMoving)
             {
                 if (_targetValue > slider.value)
-                    OnSliderMoveUp?.Invoke();
+                    onSliderMoveUp?.Invoke();
 
                 else
-                    OnSliderMoveDown?.Invoke();
+                    onSliderMoveDown?.Invoke();
                 _isMoving = true;
             }
 
@@ -39,11 +40,9 @@ namespace Yrr.UI.Elements
             if (delta < 0.05) delta = 0.05f;
             slider.value = Mathf.MoveTowards(slider.value, _targetValue, delta * Time.unscaledDeltaTime);
 
-            if (slider.value == _targetValue)
-            {
-                _isMoving = false;
-                OnSliderStop?.Invoke();
-            }
+            if (!slider.value.Equals(_targetValue)) return;
+            _isMoving = false;
+            onSliderStop?.Invoke();
         }
 
 
