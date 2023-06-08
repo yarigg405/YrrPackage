@@ -1,4 +1,5 @@
 using System;
+using Unity.Android.Types;
 using UnityEngine;
 
 
@@ -44,41 +45,38 @@ namespace Yrr.UI
         }
 
 
-        [HideInInspector]
-        public void GoToScreen(Type key, object args = null)
+        public bool GoToScreen(Type key, object args = null)
         {
             _screenManager.ChangeScreen(key, args, null);
+            return true;
         }
 
-        [HideInInspector]
-        public void GoToScreen(Type key, object args, Action callback)
+        public bool GoToScreen(Type key, object args, Action callback)
         {
             _screenManager.ChangeScreen(key, args, callback);
+            return true;
         }
 
-        [HideInInspector]
-        public void GoToScreen(Type key, Action callback)
+        public bool GoToScreen(Type key, Action callback)
         {
             _screenManager.ChangeScreen(key, null, callback);
+            return true;
         }
 
 
-        [HideInInspector]
-        public void GoToScreen<T>(object args = null)
+        public bool GoToScreen<T>(object args = null)
         {
-            GoToScreen(typeof(T), args);
+            return GoToScreen(typeof(T), args);
         }
 
-        [HideInInspector]
-        public void GoToScreen<T>(Action callback)
+        public bool GoToScreen<T>(Action callback)
         {
-            GoToScreen(typeof(T), callback);
+            return GoToScreen(typeof(T), callback);
         }
 
-        [HideInInspector]
-        public void GoToScreen<T>(object args, Action callback)
+        public bool GoToScreen<T>(object args, Action callback)
         {
-            GoToScreen(typeof(T), args, callback);
+            return GoToScreen(typeof(T), args, callback);
         }
 
         #endregion
@@ -92,41 +90,40 @@ namespace Yrr.UI
         }
 
 
-        [HideInInspector]
-        public void OpenModal(Type key, object args = null)
+
+        public bool OpenModal(Type key, object args = null)
         {
             _screenManager.ShowModal(key, args, null);
+            return true;
         }
 
-        [HideInInspector]
-        public void OpenModal(Type key, Action callback)
+        public bool OpenModal(Type key, Action callback)
         {
             _screenManager.ShowModal(key, null, callback);
+            return true;
         }
 
-        [HideInInspector]
-        public void OpenModal(Type key, object args, Action callback)
+        public bool OpenModal(Type key, object args, Action callback)
         {
             _screenManager.ShowModal(key, args, callback);
+            return true;
         }
 
 
-        [HideInInspector]
-        public void OpenModal<T>(object args = null)
+
+        public bool OpenModal<T>(object args = null)
         {
-            OpenModal(typeof(T), args);
+            return OpenModal(typeof(T), args);
         }
 
-        [HideInInspector]
-        public void OpenModal<T>(Action callback)
+        public bool OpenModal<T>(Action callback)
         {
-            OpenModal(typeof(T), callback);
+            return OpenModal(typeof(T), callback);
         }
 
-        [HideInInspector]
-        public void OpenModal<T>(object args, Action callback)
+        public bool OpenModal<T>(object args, Action callback)
         {
-            OpenModal(typeof(T), args, callback);
+            return OpenModal(typeof(T), args, callback);
         }
 
         #endregion
