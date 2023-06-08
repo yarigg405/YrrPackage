@@ -63,16 +63,19 @@ namespace Yrr.UI
         }
 
 
+        [HideInInspector]
         public void GoToScreen<T>(object args = null)
         {
             GoToScreen(typeof(T), args);
         }
 
+        [HideInInspector]
         public void GoToScreen<T>(Action callback)
         {
             GoToScreen(typeof(T), callback);
         }
 
+        [HideInInspector]
         public void GoToScreen<T>(object args, Action callback)
         {
             GoToScreen(typeof(T), args, callback);
@@ -108,16 +111,19 @@ namespace Yrr.UI
         }
 
 
+        [HideInInspector]
         public void OpenModal<T>(object args = null)
         {
             OpenModal(typeof(T), args);
         }
 
+        [HideInInspector]
         public void OpenModal<T>(Action callback)
         {
             OpenModal(typeof(T), callback);
         }
 
+        [HideInInspector]
         public void OpenModal<T>(object args, Action callback)
         {
             OpenModal(typeof(T), args, callback);
