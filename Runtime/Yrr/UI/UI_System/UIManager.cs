@@ -44,19 +44,22 @@ namespace Yrr.UI
         }
 
 
+        [HideInInspector]
         public void GoToScreen(Type key, object args = null)
         {
             _screenManager.ChangeScreen(key, args, null);
         }
 
+        [HideInInspector]
         public void GoToScreen(Type key, object args, Action callback)
         {
             _screenManager.ChangeScreen(key, args, callback);
         }
 
+        [HideInInspector]
         public void GoToScreen(Type key, Action callback)
         {
-            _screenManager.ChangeScreen(key,null, callback);
+            _screenManager.ChangeScreen(key, null, callback);
         }
 
 
@@ -72,30 +75,33 @@ namespace Yrr.UI
 
         public void GoToScreen<T>(object args, Action callback)
         {
-            GoToScreen(typeof(T),args, callback);
+            GoToScreen(typeof(T), args, callback);
         }
 
         #endregion
 
 
         #region Open modal methods
-       
+
         public void OpenModal(UIScreen screen)
         {
             _screenManager.ShowModal(screen.GetType(), null, null);
         }
 
 
+        [HideInInspector]
         public void OpenModal(Type key, object args = null)
         {
             _screenManager.ShowModal(key, args, null);
         }
 
+        [HideInInspector]
         public void OpenModal(Type key, Action callback)
         {
             _screenManager.ShowModal(key, null, callback);
         }
 
+        [HideInInspector]
         public void OpenModal(Type key, object args, Action callback)
         {
             _screenManager.ShowModal(key, args, callback);
@@ -109,7 +115,7 @@ namespace Yrr.UI
 
         public void OpenModal<T>(Action callback)
         {
-            OpenModal(typeof (T), callback);
+            OpenModal(typeof(T), callback);
         }
 
         public void OpenModal<T>(object args, Action callback)
