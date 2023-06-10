@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
@@ -8,6 +9,7 @@ namespace Yrr.UI.Elements
     public sealed class SmoothSlider : MonoBehaviour
     {
         [SerializeField] private Slider slider;
+        [SerializeField] private bool onlyIncrement;
         private float _targetValue;
         private bool _isMoving;
 
@@ -37,7 +39,7 @@ namespace Yrr.UI.Elements
             }
 
             var delta = Mathf.Abs(slider.value - _targetValue) * 2;
-            if (delta < 0.05) delta = 0.05f;
+            if (delta < 0.45) delta = 0.45f;
             slider.value = Mathf.MoveTowards(slider.value, _targetValue, delta * Time.unscaledDeltaTime);
 
             if (!slider.value.Equals(_targetValue)) return;
@@ -85,7 +87,21 @@ namespace Yrr.UI.Elements
                 Debug.LogError("Value must be 0..1");
             }
 
-            _targetValue = value;
+            if (value < _targetValue && onlyIncrement)
+            {
+                _targetValue = 1;
+                onSliderStop.AddListener(ResetSlider);
+            }
+            else
+            {
+                _targetValue = value;
+            }
+        }
+
+        private void ResetSlider()
+        {
+            _targetValue = 0;
+            onSliderStop.RemoveListener(ResetSlider);
         }
     }
 }
