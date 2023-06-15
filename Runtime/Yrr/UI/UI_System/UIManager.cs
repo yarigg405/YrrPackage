@@ -37,6 +37,11 @@ namespace Yrr.UI
             GoToScreen(windows[0]);
         }
 
+        public UIScreen GetScreen<T>() where T : UIScreen
+        {
+            return _screenStorage.GetScreen(typeof(T));
+        }
+
         #region Open screens methods
 
         public void GoToScreen(UIScreen screen)
