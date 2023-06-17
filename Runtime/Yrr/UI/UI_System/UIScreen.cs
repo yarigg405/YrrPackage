@@ -13,7 +13,7 @@ namespace Yrr.UI
 
         private event Action ClosingCallback;
 
-        internal virtual void InitializeScreen() { }
+        protected virtual void InitializeScreen() { }
 
 
         public void Show(object args, Action callback)

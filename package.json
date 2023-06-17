@@ -1,6 +1,6 @@
 {
   "name": "com.yrr.yrrpackage",
-  "version": "0.3.15",
+  "version": "0.3.16",
   "displayName": "Yrr",
   "description": "My Unity3d tools package",
   "unity": "2021.3",
