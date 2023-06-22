@@ -40,6 +40,16 @@ namespace Yrr.Utils
             return result;
         }
 
+        public static Vector2 ToVector2XZ(this Vector3 vector)
+        {
+            return new Vector2(vector.x, vector.z);
+        }
+
+        public static Vector2 ToVector2XY(this Vector3 vector)
+        {
+            return new Vector2(vector.x, vector.y);
+        }
+
 
         public static T GetRandomItem<T>(this List<T> list)
         {
