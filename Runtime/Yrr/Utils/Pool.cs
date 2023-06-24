@@ -6,13 +6,20 @@ namespace Yrr.Utils
 {
     public class Pool<T> : MonoBehaviour where T : Component
     {
+        [SerializeField] private T prefab;
         [SerializeField] private Transform objectsInPoolContainer;
-        private T _prefab;
+        [SerializeField] private Transform worldTransform;
+        [SerializeField] private int initializeCount = 10;
+
         private readonly Queue<T> _pooledObjects = new();
 
-        public void InitializePool(T prefab, int initialCount)
+        private void Awake()
         {
-            _prefab = prefab;
+            InitializePool(prefab, initializeCount);
+        }
+
+        private void InitializePool(T prefab, int initialCount)
+        {
             for (var i = 0; i < initialCount; i++)
             {
                 var bullet = Instantiate(prefab, objectsInPoolContainer);
@@ -22,7 +29,7 @@ namespace Yrr.Utils
 
         public T SpawnObject(Transform parentForNewObject = null)
         {
-            var parent = parentForNewObject == null ? null : parentForNewObject;
+            var parent = parentForNewObject == null ? worldTransform : parentForNewObject;
 
             if (_pooledObjects.TryDequeue(out var newObject))
             {
@@ -30,7 +37,7 @@ namespace Yrr.Utils
             }
             else
             {
-                newObject = Instantiate(_prefab, parent);
+                newObject = Instantiate(prefab, parent);
             }
 
             return newObject;
@@ -41,6 +48,5 @@ namespace Yrr.Utils
             _pooledObjects.Enqueue(poolableObject);
             poolableObject.transform.SetParent(this.objectsInPoolContainer);
         }
-
     }
 }
