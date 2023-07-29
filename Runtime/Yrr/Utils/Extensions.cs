@@ -50,6 +50,11 @@ namespace Yrr.Utils
             return new Vector2(vector.x, vector.y);
         }
 
+        public static Vector3 InvertYZ(this Vector3 vector)
+        {
+            return new Vector3(vector.x, vector.z, vector.y);
+        }
+
 
         public static T GetRandomItem<T>(this List<T> list)
         {
