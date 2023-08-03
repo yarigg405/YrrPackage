@@ -113,6 +113,10 @@ namespace Yrr.UI
         }
 
 
+        public bool OpenModal<T>(T screenType)
+        {
+            return OpenModal(typeof(T));
+        }
 
         public bool OpenModal<T>(object args = null)
         {

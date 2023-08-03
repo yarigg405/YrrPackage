@@ -40,6 +40,21 @@ namespace Yrr.Utils
             return result;
         }
 
+        public static Vector3 GetRandomCoordinatesAroundPoint(this Vector3 originalPoint, float radius,
+                bool pointOnRadiusLine = false)
+        {
+            float angle = Random.Range(0, 360);
+            var lenght = pointOnRadiusLine ? radius :
+                (Random.Range(0, radius));
+
+            var x = Mathf.Cos(angle * Mathf.Deg2Rad) * lenght;
+            var y = Mathf.Sin(angle * Mathf.Deg2Rad) * lenght;
+
+
+            var result = new Vector3(originalPoint.x + x, originalPoint.y, originalPoint.z + y);
+            return result;
+        }
+
         public static Vector2 ToVector2XZ(this Vector3 vector)
         {
             return new Vector2(vector.x, vector.z);
@@ -53,6 +68,11 @@ namespace Yrr.Utils
         public static Vector3 InvertYZ(this Vector3 vector)
         {
             return new Vector3(vector.x, vector.z, vector.y);
+        }
+
+        public static float GetRandomValue(this Vector2 vector)
+        {
+            return Random.Range(vector.x, vector.y);
         }
 
 
