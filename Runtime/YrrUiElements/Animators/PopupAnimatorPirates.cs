@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Yrr.UI.Animators
 {
-    public sealed class PopupAnimator : TweenAnimator
+    internal sealed class PopupAnimatorPirates : TweenAnimator
     {
         [SerializeField] private CanvasGroup canvasGroup;
         [SerializeField] private RectTransform rootTransform;

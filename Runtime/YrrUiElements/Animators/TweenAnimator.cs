@@ -14,14 +14,14 @@ namespace Yrr.UI.Animators
 
         private void OnEnable()
         {
-            if (playOnEnable)
-            {
-                Animate();
-            }
-
             if (loop)
             {
                 _callback = Animate;
+            }
+
+            if (playOnEnable)
+            {
+                Animate();
             }
         }
 
@@ -30,7 +30,7 @@ namespace Yrr.UI.Animators
             StopAnimation();
         }
 
-
+        [ContextMenu("Animate")]
         public void Animate()
         {
             var seq = GetSequence();

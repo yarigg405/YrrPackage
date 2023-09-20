@@ -19,9 +19,9 @@ namespace Yrr.UI
             _screenStorage = new ScreenStorage();
             _screenManager = new ScreenManager(_screenStorage);
 
-            _screenManager.OnScreenShown += OnScreenShown;
-            _screenManager.OnScreenHided += OnScreenHided;
-            _screenManager.OnModalShown += OnModalShown;
+            _screenManager.OnScreenShown += OpenScreenEvent;
+            _screenManager.OnScreenHided += HideScreenEvent;
+            _screenManager.OnModalShown += OpenModalEvent;
 
 
             var windows = transform.GetComponentsInChildren<UIScreen>(true);
@@ -30,14 +30,35 @@ namespace Yrr.UI
             {
                 _screenStorage.AddScreen(screen.GetType(), screen);
                 screen.Hide();
+                screen.OnHideAction += HideScreenEvent;
             }
 
             GoToScreen(windows[0]);
         }
 
+        private void OpenModalEvent(UIScreen screen)
+        {
+            OnModalShown?.Invoke(screen);
+        }
+
+        private void HideScreenEvent(UIScreen screen)
+        {
+            OnScreenHided?.Invoke(screen);
+        }
+
+        private void OpenScreenEvent(UIScreen screen)
+        {
+            OnScreenShown?.Invoke(screen);
+        }
+
         public UIScreen GetScreen<T>() where T : UIScreen
         {
             return _screenStorage.GetScreen(typeof(T));
+        }
+
+        public UIScreen GetScreen(Type screenType)
+        {
+            return _screenStorage.GetScreen(screenType);
         }
 
         #region Open screens methods
@@ -113,10 +134,6 @@ namespace Yrr.UI
         }
 
 
-        public bool OpenModal<T>(T screenType)
-        {
-            return OpenModal(typeof(T));
-        }
 
         public bool OpenModal<T>(object args = null)
         {
@@ -133,6 +150,6 @@ namespace Yrr.UI
             return OpenModal(typeof(T), args, callback);
         }
 
-        #endregion
+        #endregion       
     }
 }

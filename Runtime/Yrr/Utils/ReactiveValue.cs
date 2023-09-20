@@ -1,5 +1,4 @@
 ﻿using System;
-using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 using UnityEngine;
 
 
@@ -9,6 +8,7 @@ namespace Yrr.Utils
     public class ReactiveValue<T>
     {
         public event Action<T> OnChange;
+        [SerializeField]
         private T _currentValue;
 
         public T Value

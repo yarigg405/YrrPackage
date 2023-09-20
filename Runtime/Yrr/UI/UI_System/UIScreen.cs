@@ -12,8 +12,10 @@ namespace Yrr.UI
         [SerializeField] private UnityEvent onHide;
 
         private event Action ClosingCallback;
+        [HideInInspector] public event Action<UIScreen> OnHideAction;
 
-      
+
+
         public void Show(object args, Action callback)
         {
             ShowProcedure();
@@ -32,8 +34,11 @@ namespace Yrr.UI
 
         public void Hide()
         {
+            if (!gameObject.activeSelf) return;
+
             OnHide();
             onHide?.Invoke();
+            OnHideAction?.Invoke(this);
             ClosingCallback?.Invoke();
             ClosingCallback = null;
             HidingProcedure();

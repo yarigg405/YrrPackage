@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Yrr.UI.Animators
 {
-    public sealed class ScalePulseAnimator : TweenAnimator
+    internal sealed class ScalePulseAnimator : TweenAnimator
     {
         [SerializeField] private Transform root;
         [SerializeField] private int countOfPulsing;

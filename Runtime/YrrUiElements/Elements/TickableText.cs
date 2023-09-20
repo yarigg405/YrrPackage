@@ -14,7 +14,6 @@ namespace Yrr.UI.Elements
         private float _counter;
 
 
-
         private void Update()
         {
             if (_targetCounter.Equals(_counter)) return;

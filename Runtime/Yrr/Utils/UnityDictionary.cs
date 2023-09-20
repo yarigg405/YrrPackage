@@ -9,35 +9,41 @@ namespace Yrr.Utils
     public sealed class UnityDictionary<TKey, TValue>
     {
         [SerializeField] private List<UnityKeyValuePair<TKey, TValue>> data;
-        private Dictionary<TKey, TValue> _repository;
+        private Dictionary<TKey, int> _indexes;
 
-        public void Initialize()
+        public TValue Get(TKey key)
         {
-            _repository = new Dictionary<TKey, TValue>();
-            foreach (var item in data)
+            if (_indexes == null)
+                Initialize();
+
+            if (_indexes.TryGetValue(key, out var index))
+                return data[index].Value;
+
+            Debug.Log("Item is not found: " + key.ToString());
+            return default;
+        }
+
+        private void Initialize()
+        {
+            _indexes = new Dictionary<TKey, int>();
+            for (int i = 0; i < data.Count; i++)
             {
+                _indexes[data[i].Key] = i;
                 try
                 {
-                    _repository.Add(item.Key, item.Value);
+                    _indexes.Add(data[i].Key, i);
                 }
 
                 catch (ArgumentException)
                 {
-                    Debug.LogError($"Item {item.Key} has already been added");
+                    Debug.LogError($"Item {data[i].Key} has already been added");
                 }
             }
-        }
-
-        public TValue Get(TKey key)
-        {
-            if (_repository.TryGetValue(key, out var value)) return value;
-            Debug.Log("Item is not found: " + key.ToString());
-            return default;
         }
     }
 
     [Serializable]
-    internal sealed class UnityKeyValuePair<TKey, TValue>
+    public sealed class UnityKeyValuePair<TKey, TValue>
     {
         public TKey Key;
         public TValue Value;
