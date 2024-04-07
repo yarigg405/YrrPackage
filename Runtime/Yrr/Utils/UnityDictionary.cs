@@ -23,6 +23,22 @@ namespace Yrr.Utils
             return default;
         }
 
+        public bool TryGet(TKey key, out TValue value)
+        {
+            if (_indexes.TryGetValue(key, out var index))
+            {
+                value = data[index].Value;
+                return true;
+            }
+
+            else
+            {
+                value = default;
+                return false;
+            }
+        }
+
+
         private void Initialize()
         {
             _indexes = new Dictionary<TKey, int>();

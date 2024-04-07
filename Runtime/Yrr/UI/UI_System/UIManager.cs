@@ -6,9 +6,9 @@ namespace Yrr.UI
 {
     public sealed class UIManager : MonoBehaviour
     {
-        public event Action<UIScreen> OnScreenShown;
-        public event Action<UIScreen> OnScreenHided;
-        public event Action<UIScreen> OnModalShown;
+        public event Action<IUIScreen> OnScreenShown;
+        public event Action<IUIScreen> OnScreenHided;
+        public event Action<IUIScreen> OnModalShown;
 
         private ScreenStorage _screenStorage;
         private ScreenManager _screenManager;
@@ -36,30 +36,26 @@ namespace Yrr.UI
             GoToScreen(windows[0]);
         }
 
-        private void OpenModalEvent(UIScreen screen)
+        private void OpenModalEvent(IUIScreen screen)
         {
             OnModalShown?.Invoke(screen);
         }
 
-        private void HideScreenEvent(UIScreen screen)
+        private void HideScreenEvent(IUIScreen screen)
         {
             OnScreenHided?.Invoke(screen);
         }
 
-        private void OpenScreenEvent(UIScreen screen)
+        private void OpenScreenEvent(IUIScreen screen)
         {
             OnScreenShown?.Invoke(screen);
         }
 
-        public UIScreen GetScreen<T>() where T : UIScreen
+        public T GetScreen<T>() where T : IUIScreen
         {
-            return _screenStorage.GetScreen(typeof(T));
+            return (T) _screenStorage.GetScreen(typeof(T));
         }
 
-        public UIScreen GetScreen(Type screenType)
-        {
-            return _screenStorage.GetScreen(screenType);
-        }
 
         #region Open screens methods
 

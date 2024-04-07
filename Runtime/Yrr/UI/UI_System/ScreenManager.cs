@@ -5,13 +5,13 @@ namespace Yrr.UI
 {
     internal sealed class ScreenManager
     {
-        internal event Action<UIScreen> OnScreenShown;
-        internal event Action<UIScreen> OnScreenHided;
+        internal event Action<IUIScreen> OnScreenShown;
+        internal event Action<IUIScreen> OnScreenHided;
 
-        internal event Action<UIScreen> OnModalShown;
+        internal event Action<IUIScreen> OnModalShown;
 
         private readonly ScreenStorage _screenStorage;
-        private UIScreen _currentScreen;
+        private IUIScreen _currentScreen;
 
         internal ScreenManager(ScreenStorage screenStorage)
         {
