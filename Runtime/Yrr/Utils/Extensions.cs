@@ -2,9 +2,7 @@
 using System.Globalization;
 using UnityEngine;
 using System.Linq;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
+using System.Text;
 
 
 namespace Yrr.Utils
@@ -23,6 +21,9 @@ namespace Yrr.Utils
             }
         }
 
+
+        #region Vectors
+
         public static Vector2 GetRandomCoordinatesAroundPoint(this Vector2 originalPoint, float radius,
                bool pointOnRadiusLine = false)
         {
@@ -40,7 +41,7 @@ namespace Yrr.Utils
             return result;
         }
 
-        public static Vector3 GetRandomCoordinatesAroundPoint(this Vector3 originalPoint, float radius,
+        public static Vector3 GetRandomCoordinatesAroundPointZX(this Vector3 originalPoint, float radius,
                 bool pointOnRadiusLine = false)
         {
             float angle = Random.Range(0, 360);
@@ -52,6 +53,21 @@ namespace Yrr.Utils
 
 
             var result = new Vector3(originalPoint.x + x, originalPoint.y, originalPoint.z + y);
+            return result;
+        }
+
+        public static Vector3 GetRandomCoordinatesAroundPointXY(this Vector3 originalPoint, float radius,
+               bool pointOnRadiusLine = false)
+        {
+            float angle = Random.Range(0, 360);
+            var lenght = pointOnRadiusLine ? radius :
+                (Random.Range(0, radius));
+
+            var x = Mathf.Cos(angle * Mathf.Deg2Rad) * lenght;
+            var y = Mathf.Sin(angle * Mathf.Deg2Rad) * lenght;
+
+
+            var result = new Vector3(originalPoint.x + x, originalPoint.y + y, originalPoint.z);
             return result;
         }
 
@@ -70,11 +86,15 @@ namespace Yrr.Utils
             return new Vector3(vector.x, vector.z, vector.y);
         }
 
+        #endregion
+
+
+        #region GetRandom
+
         public static float GetRandomValue(this Vector2 vector)
         {
             return Random.Range(vector.x, vector.y);
         }
-
 
         public static T GetRandomItem<T>(this List<T> list)
         {
@@ -91,6 +111,11 @@ namespace Yrr.Utils
             var enumerable = list as T[] ?? list.ToArray();
             return enumerable.Any() ? enumerable.ElementAt(Random.Range(0, enumerable.Length)) : default;
         }
+
+        #endregion
+
+
+        #region Collections
 
         public static T GetLast<T>(this List<T> list)
         {
@@ -113,6 +138,10 @@ namespace Yrr.Utils
             (list[indexA], list[indexB]) = (list[indexB], list[indexA]);
         }
 
+        #endregion
+
+
+        #region Strings
 
         public static string ToIntString(this float value)
         {
@@ -124,9 +153,22 @@ namespace Yrr.Utils
             var str = value.ToString(CultureInfo.InvariantCulture);
             return str.Replace(",", ".");
         }
+       
+        public static string ToShortMoneyString(this int value)
+        {
+            return ((ulong)value).ToShortMoneyString();
+        }
+
+        private static string[] _moneyPrefix = { string.Empty, "K", "M", "B" };
 
         public static string ToShortMoneyString(this float value)
         {
+            return ((ulong)value).ToShortMoneyString();
+        }
+
+        public static string ToShortMoneyString(this ulong value)
+        {
+            if (value == 0) return "0";
             string[] prefix = { string.Empty, "K", "M", "B" };
             var absolute = Mathf.Abs(value);
             int add;
@@ -141,7 +183,54 @@ namespace Yrr.Utils
 
             var shortNumber = value / Mathf.Pow(10, add * 3);
 
-            return $"{shortNumber:0.#}{prefix[add]}";
+            shortNumber *= 100;
+            shortNumber = Mathf.Floor(shortNumber);
+            shortNumber /= 100;
+
+            if (shortNumber > 100f)
+                return $"{(int)shortNumber}{prefix[add]}";
+            else if (shortNumber > 10f)
+                return $"{shortNumber:0.#}{prefix[add]}";
+            else
+                return $"{shortNumber:0.##}{prefix[add]}";
+
+        }
+
+        public static ulong ToRounded(this ulong value)
+        {
+            if (value < 1000) return value;
+
+            if (value < 10_000)
+            {
+                var shortVal = value / 10f;
+                var rounded = Mathf.Round(shortVal);
+                return (ulong)(rounded * 10f);
+            }
+
+            if (value < 100_000)
+            {
+                var shortVal = value / 100f;
+                var rounded = Mathf.Round(shortVal);
+                return (ulong)(rounded * 100f);
+            }
+
+            if (value < 1_000_000)
+            {
+                var shortVal = value / 1000f;
+                var rounded = Mathf.Round(shortVal);
+                return (ulong)(rounded * 1000f);
+            }
+
+            if (value < 1_000_000_000)
+            {
+                var shortVal = value / 100000f;
+                var rounded = Mathf.Round(shortVal);
+                return (ulong)(rounded * 100000f);
+            }
+
+            var shortVal1 = value / 1000000f;
+            var rounded1 = Mathf.Round(shortVal1);
+            return (ulong)(rounded1 * 1000000f);
         }
 
         public static string ToShortTimeString(this float timeValue)
@@ -157,32 +246,31 @@ namespace Yrr.Utils
             if (minutes > 0) return minutes.ToString("00") + "m ";
             return seconds.ToString("00") + "s";
         }
-    }
 
-
-#if UNITY_EDITOR
-    public class ReadOnlyAttribute : PropertyAttribute
-    {
-
-    }
-
-    [CustomPropertyDrawer(typeof(ReadOnlyAttribute))]
-    public class ReadOnlyDrawer : PropertyDrawer
-    {
-        public override float GetPropertyHeight(SerializedProperty property,
-                                                GUIContent label)
+        public static string ToTimeString(this float timeValue)
         {
-            return EditorGUI.GetPropertyHeight(property, label, true);
+            var time = (int)timeValue + 1;
+
+            var seconds = time % 60f;
+            var minutes = time / 60;
+            var hours = minutes / 60;
+            minutes = minutes % 60;
+
+            var sb = new StringBuilder();
+            if (hours > 0)
+            {
+                sb.Append(hours.ToString("00"));
+                sb.Append(":");
+            }
+            sb.Append(minutes.ToString("0"));
+            sb.Append(":");
+            sb.Append(seconds.ToString("00"));
+
+            return sb.ToString();
         }
 
-        public override void OnGUI(Rect position,
-                                   SerializedProperty property,
-                                   GUIContent label)
-        {
-            GUI.enabled = false;
-            EditorGUI.PropertyField(position, property, label, true);
-            GUI.enabled = true;
-        }
+
+        #endregion
+
     }
-#endif
 }

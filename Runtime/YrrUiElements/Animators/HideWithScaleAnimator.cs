@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Yrr.UI.Animators
 {
-    internal sealed class ShowWithScaleAnimator : TweenAnimator
+    internal sealed class HideWithScaleAnimator : TweenAnimator
     {
         [SerializeField] private Transform root;
         [SerializeField] private float maxScale = 1.2f;
@@ -14,17 +14,18 @@ namespace Yrr.UI.Animators
         protected override Sequence GetSequence()
         {
             DOTween.Kill(this);
-            root.localScale = Vector3.zero;
+            root.localScale = Vector3.one;
             var seq = DOTween.Sequence(this).SetUpdate(true)
                 .Append(root.DOScale(maxScale, duration1))
-                .Append(root.DOScale(1, duration2));
+                .Append(root.DOScale(0f, duration2));
 
             return seq;
         }
 
         protected override void ResetToDefault()
         {
-            root.localScale = Vector3.one;
+            root.localScale = Vector3.zero;
         }
+
     }
 }

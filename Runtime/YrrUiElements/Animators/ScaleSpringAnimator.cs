@@ -1,9 +1,8 @@
 using DG.Tweening;
 using UnityEngine;
-using Yrr.UI.Animators;
 
 
-namespace Game
+namespace Yrr.UI.Animators
 {
     internal sealed class ScaleSpringAnimator : TweenAnimator
     {

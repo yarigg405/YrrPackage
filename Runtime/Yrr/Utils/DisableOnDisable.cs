@@ -1,17 +1,21 @@
-using System.Collections.Generic;
 using UnityEngine;
 
-public class DisableOnDisable : MonoBehaviour
+
+namespace Yrr.Utils
 {
-    [SerializeField] List<GameObject> disableOnDisable;
-
-
-    private void OnDisable()
+    internal sealed class DisableOnDisable : MonoBehaviour
     {
-        foreach (var go in disableOnDisable)
+        [SerializeField] private GameObject[] disableOnDisable;
+
+
+        private void OnDisable()
         {
-            if (go)
-                go.SetActive(false);
+            for (int i = 0; i < disableOnDisable.Length; i++)
+            {
+                var go = disableOnDisable[i];
+                if (go)
+                    go.SetActive(false);
+            }
         }
     }
 }

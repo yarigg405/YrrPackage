@@ -53,5 +53,10 @@ namespace Yrr.UI.Animators
 
         protected abstract void ResetToDefault();
 
+        public Sequence GetSequenceForComposite()
+        {
+            return GetSequence();
+        }
+
     }
 }

@@ -1,24 +1,21 @@
-using System.Collections.Generic;
-using System.Collections;
 using UnityEngine;
 
-public class EnableOnEnable : MonoBehaviour
+
+namespace Yrr.Utils
 {
-    [SerializeField] List<GameObject> enableOnEnable;
-    [SerializeField] float enableDelay = 0;
-
-
-    private void OnEnable()
+    internal sealed class EnableOnEnable : MonoBehaviour
     {
-        StartCoroutine(DelayedEnable());
-    }
+        [SerializeField] private GameObject[] enableOnEnable;
 
-    private IEnumerator DelayedEnable()
-    {
-        yield return new WaitForSeconds(enableDelay);
-        foreach (var go in enableOnEnable)
+
+        private void OnEnable()
         {
-            go.SetActive(true);
+            for (int i = 0; i < enableOnEnable.Length; i++)
+            {
+                var go = enableOnEnable[i];
+                if (go)
+                    go.SetActive(true);
+            }
         }
     }
 }

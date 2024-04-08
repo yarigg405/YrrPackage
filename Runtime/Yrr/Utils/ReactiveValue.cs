@@ -5,10 +5,12 @@ using UnityEngine;
 namespace Yrr.Utils
 {
     [Serializable]
-    public class ReactiveValue<T>
+    public struct ReactiveValue<T>
     {
         public event Action<T> OnChange;
+        
         [SerializeField]
+        [ReadOnly]
         private T _currentValue;
 
         public T Value
@@ -18,18 +20,7 @@ namespace Yrr.Utils
         }
 
 
-
-        public ReactiveValue()
-        {
-            _currentValue = default(T);
-        }
-
-        public ReactiveValue(T startValue)
-        {
-            _currentValue = startValue;
-        }
-
-        protected virtual void SetValue(T value)
+        public void SetValue(T value)
         {
             if (value.Equals(_currentValue)) return;
 

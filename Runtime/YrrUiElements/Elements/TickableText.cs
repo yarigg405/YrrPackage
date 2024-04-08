@@ -8,6 +8,8 @@ namespace Yrr.UI.Elements
     public sealed class TickableText : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI tmp;
+        [SerializeField] private bool shortMoney;
+        [SerializeField] private float tickSpeedModifier = 8f;
         private string _prefix;
         private string _postfix;
         private float _targetCounter;
@@ -18,7 +20,7 @@ namespace Yrr.UI.Elements
         {
             if (_targetCounter.Equals(_counter)) return;
 
-            var delta = Mathf.Abs(_targetCounter - _counter) * 2;
+            var delta = Mathf.Abs(_targetCounter - _counter) * tickSpeedModifier;
             if (delta < 10) delta = 10;
 
             _counter = Mathf.MoveTowards(_counter, _targetCounter, delta * Time.unscaledDeltaTime);
@@ -27,17 +29,25 @@ namespace Yrr.UI.Elements
 
         private void UpdateVisual()
         {
-            tmp.text = $"{_prefix}{_counter.ToIntString()}{_postfix}";
+            if (shortMoney)
+            {
+                tmp.text = $"{_prefix}{_counter.ToShortMoneyString()}{_postfix}";
+            }
+
+            else
+            {
+                tmp.text = $"{_prefix}{_counter.ToIntString()}{_postfix}";
+            }
         }
 
-        public void InitValue(int value)
+        public void InitValue(ulong value)
         {
             _targetCounter = value;
             _counter = value;
             UpdateVisual();
         }
 
-        public void SmoothChangeValue(int value)
+        public void SmoothChangeValue(ulong value)
         {
             _targetCounter = value;
         }

@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Yrr.Utils
 {
     [Serializable]
-    public sealed class UnityDictionary<TKey, TValue>
+    public struct UnityDictionary<TKey, TValue>
     {
         [SerializeField] private List<UnityKeyValuePair<TKey, TValue>> data;
         private Dictionary<TKey, int> _indexes;
@@ -38,7 +38,6 @@ namespace Yrr.Utils
             }
         }
 
-
         private void Initialize()
         {
             _indexes = new Dictionary<TKey, int>();
@@ -59,7 +58,7 @@ namespace Yrr.Utils
     }
 
     [Serializable]
-    public sealed class UnityKeyValuePair<TKey, TValue>
+    public struct UnityKeyValuePair<TKey, TValue>
     {
         public TKey Key;
         public TValue Value;
