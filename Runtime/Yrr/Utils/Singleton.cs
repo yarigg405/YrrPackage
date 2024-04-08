@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Yrr.Utils
 {
-    public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
+    public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     {
         public static bool isApplicationQuitting;
         private static T _instance;
@@ -26,13 +26,16 @@ namespace Yrr.Utils
                         _instance = singleton.AddComponent<T>();
                         DontDestroyOnLoad(singleton);
                     }
+
+                    if (_instance is IInitializable initializable)
+                    {
+                        initializable.Initialize();
+                    }
                 }
 
                 return _instance;
             }
         }
-
-        protected virtual void Initialize() { }
 
 
         public virtual void OnDestroy()
