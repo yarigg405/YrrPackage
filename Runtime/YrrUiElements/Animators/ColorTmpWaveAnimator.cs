@@ -1,10 +1,9 @@
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
-using Yrr.UI.Animators;
 
 
-namespace Yrr.Ui.Animators
+namespace Yrr.UI.Animators
 {
     internal sealed class ColorTmpWaveAnimator : TweenAnimator
     {

@@ -1,9 +1,8 @@
 using DG.Tweening;
 using UnityEngine;
-using Yrr.UI.Animators;
 
 
-namespace Yrr.Ui.Animators
+namespace Yrr.UI.Animators
 {
     internal sealed class GlareBlinkAnimator : TweenAnimator
     {

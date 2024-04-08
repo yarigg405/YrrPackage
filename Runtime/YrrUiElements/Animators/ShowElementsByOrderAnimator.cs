@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 
-namespace Yrr.Ui.Animators
+namespace Yrr.UI.Animators
 {
     internal sealed class ShowElementsByOrderAnimator : MonoBehaviour
     {

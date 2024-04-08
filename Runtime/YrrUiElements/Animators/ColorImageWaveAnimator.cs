@@ -1,10 +1,9 @@
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
-using Yrr.UI.Animators;
 
 
-namespace Yrr.Ui.Animators
+namespace Yrr.UI.Animators
 {
     internal sealed class ColorImageWaveAnimator : TweenAnimator
     {

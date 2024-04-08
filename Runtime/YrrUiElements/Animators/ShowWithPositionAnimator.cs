@@ -12,17 +12,18 @@ namespace Yrr.UI.Animators
 
         [SerializeField] private Vector3 startPos;
         [SerializeField] private Vector3 maxPos;
+        [SerializeField] private Vector3 endPos;
+
+
         [SerializeField] private bool needReturn;
         [SerializeField] private float delayBeforeReturn;
 
         protected override Sequence GetSequence()
         {
-            DOTween.Kill(this);
-
             root.localPosition = startPos;
             var seq = DOTween.Sequence(this).SetUpdate(true)
                 .Append(root.DOLocalMove(maxPos, duration1))
-                .Append(root.DOLocalMove(Vector3.zero, duration2));
+                .Append(root.DOLocalMove(endPos, duration2));
 
             if (needReturn)
             {
