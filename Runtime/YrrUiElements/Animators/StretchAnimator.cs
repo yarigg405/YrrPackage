@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Yrr.UI.Animators
 {
-    internal sealed class StretchingWaveAnimator : TweenAnimator
+    internal sealed class StretchAnimator : TweenAnimator
     {
         [SerializeField] private Transform root;
         [SerializeField] private Vector3 startPositon;
@@ -12,7 +12,6 @@ namespace Yrr.UI.Animators
         [SerializeField] private Vector3 startScale;
         [SerializeField] private Vector3 endScale;
         [SerializeField] private float duration;
-        [SerializeField] private float delay;
 
         protected override Sequence GetSequence()
         {
@@ -25,8 +24,6 @@ namespace Yrr.UI.Animators
 
                 .Append(root.DOScale(startScale, duration))
                 .Join(root.DOLocalMove(startPositon, duration))
-
-                .AppendInterval(delay)
                 ;
 
             return seq;
