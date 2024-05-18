@@ -7,6 +7,7 @@ using UnityEditor;
 
 namespace Yrr.Utils
 {
+#if UNITY_EDITOR
     [System.AttributeUsage(System.AttributeTargets.Field, Inherited = false, AllowMultiple = true)]
     public sealed class ShowIfAttribute : PropertyAttribute
     {
@@ -37,13 +38,12 @@ namespace Yrr.Utils
     }
 
 
-#if UNITY_EDITOR
+
     [CustomPropertyDrawer(typeof(ShowIfAttribute))]
     public class ConditionalHidePropertyDrawer : PropertyDrawer
     {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-#if UNITY_EDITOR
             ShowIfAttribute condHAtt = (ShowIfAttribute)attribute;
             bool enabled = GetConditionalSourceField(property, condHAtt);
             GUI.enabled = enabled;
@@ -56,12 +56,11 @@ namespace Yrr.Utils
                 EditorGUI.PropertyField(position, property, label, false);
             // else hide it ,dont draw it
             else return;
-#endif
         }
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
-#if UNITY_EDITOR
+
             ShowIfAttribute condHAtt = (ShowIfAttribute)attribute;
             bool enabled = GetConditionalSourceField(property, condHAtt);
 
@@ -79,9 +78,7 @@ namespace Yrr.Utils
                 else
                     return -EditorGUIUtility.standardVerticalSpacing; // Oculta el campo visualmente.
             }
-#else
-        return 0f;
-#endif
+            return 0f;
         }
 
         /// <summary>
@@ -92,7 +89,6 @@ namespace Yrr.Utils
         /// <returns> only if the field y is same to the value expected return true</returns>
         private bool GetConditionalSourceField(SerializedProperty property, ShowIfAttribute condHAtt)
         {
-#if UNITY_EDITOR
             bool enabled = false;
             string propertyPath = property.propertyPath;
             string conditionPath = propertyPath.Replace(property.name, condHAtt.ConditionalSourceField);
@@ -118,11 +114,13 @@ namespace Yrr.Utils
             }
 
             return enabled;
-#else
-        return false;
-#endif
+
         }
     }
 
+#else
+public sealed class ShowIfAttribute : PropertyAttribute
+{
+}
 #endif
 }

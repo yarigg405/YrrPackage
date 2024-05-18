@@ -8,12 +8,11 @@ using UnityEditor;
 
 namespace Yrr.Utils
 {
-#if UNITY_EDITOR
     public class ReadOnlyAttribute : PropertyAttribute
     {
 
     }
-
+#if UNITY_EDITOR
     [CustomPropertyDrawer(typeof(ReadOnlyAttribute))]
     public class ReadOnlyDrawer : PropertyDrawer
     {

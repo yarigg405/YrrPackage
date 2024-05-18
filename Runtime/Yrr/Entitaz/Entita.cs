@@ -12,23 +12,24 @@ namespace Yrr.Entitaz
 
         public virtual void SetupEntita()
         {
-            if (_components.Count > 0) return;
+            var childrenComponents = GetComponentsInChildren<IEntitazComponent>(true);
 
-            var childrenComponents = GetComponentsInChildren<IEntitazComponent>();
-
-            foreach (var child in childrenComponents) 
+            for (int i = 0; i < childrenComponents.Length; i++)
+            {
+                var child = childrenComponents[i];
                 AddEntityComponent(child);
+            }
         }
 
 
         public void AddEntityComponent(object component)
         {
-            _components.Add(component.GetType(), component);
+            _components[component.GetType()] = component;
         }
 
         void IEntita.AddEntityComponent(object component, Type componentType)
         {
-            _components.Add(componentType, component);
+            _components[componentType] = component;
         }
 
         T IEntita.GetEntityComponent<T>()
