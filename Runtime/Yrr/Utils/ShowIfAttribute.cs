@@ -36,6 +36,8 @@ namespace Yrr.Utils
         }
     }
 
+
+#if UNITY_EDITOR
     [CustomPropertyDrawer(typeof(ShowIfAttribute))]
     public class ConditionalHidePropertyDrawer : PropertyDrawer
     {
@@ -121,4 +123,6 @@ namespace Yrr.Utils
 #endif
         }
     }
+
+#endif
 }

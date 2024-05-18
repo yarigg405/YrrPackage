@@ -10,7 +10,9 @@ namespace Yrr.Utils
         public event Action<T> OnChange;
         
         [SerializeField]
+#if UNITY_EDITOR
         [ReadOnly]
+#endif
         private T _currentValue;
 
         public T Value

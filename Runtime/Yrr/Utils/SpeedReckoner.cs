@@ -7,7 +7,10 @@ namespace Yrr.Utils
     internal sealed class SpeedReckoner : MonoBehaviour
     {
         [SerializeField] private float updateDelay = 0.05f;
-        [ReadOnly] public float Speed;
+#if UNITY_EDITOR
+        [ReadOnly]
+#endif
+        public float Speed;
 
 
         private void OnEnable()

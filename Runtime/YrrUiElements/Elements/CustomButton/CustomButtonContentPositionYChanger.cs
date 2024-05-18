@@ -10,8 +10,8 @@ namespace Yrr.UI.Elements
 
         [Space]
         private float _defaultYPos;
-        [SerializeField] private float pressedPositionY;
-        [SerializeField] private float disabledPositionY;
+        [SerializeField] private float pressedPositionY = -10f;
+        [SerializeField] private float disabledPositionY = 0;
 
         private void Awake()
         {

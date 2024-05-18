@@ -47,12 +47,18 @@ namespace Yrr.UI.Elements
 
         private void SetPressed()
         {
-            changedImage.sprite = pressedSprite;
+            if (pressedSprite)
+                changedImage.sprite = pressedSprite;
+            else
+                changedImage.sprite = _normalSprite;
         }
 
         private void SetDisabled()
         {
-            changedImage.sprite = disabledSprite;
+            if (disabledSprite)
+                changedImage.sprite = disabledSprite;
+            else
+                changedImage.sprite = _normalSprite;
         }
     }
 }

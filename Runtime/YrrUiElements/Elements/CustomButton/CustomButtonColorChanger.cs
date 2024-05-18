@@ -13,14 +13,28 @@ namespace Yrr.UI.Elements
         [SerializeField] private Image[] imagesForRecolor;
         [SerializeField] private TextMeshProUGUI[] tmpsForRecolor;
 
-        [Space]
-        [SerializeField] private Color normalColor = Color.white;
+        [Space]        
         [SerializeField] private Color pressedColor = Color.white;
         [SerializeField] private Color disabledColor = new Color(0.78f, 0.78f, 0.78f, 0.5f);
+
+        private Color _normalColor;
 
 
         private void Awake()
         {
+            if (imagesForRecolor.Length > 0 && imagesForRecolor[0])
+            {
+                _normalColor = imagesForRecolor[0].color;
+            }
+
+            else if (tmpsForRecolor.Length > 0 && tmpsForRecolor[0])
+            {
+                _normalColor = tmpsForRecolor[0].color;
+            }
+
+            else
+                _normalColor = Color.white;
+
             SetNormal();
             customButton.OnButtonStateChanged += ChangeColor;
         }
@@ -49,12 +63,12 @@ namespace Yrr.UI.Elements
         {
             foreach (var image in imagesForRecolor)
             {
-                image.color = normalColor;
+                image.color = _normalColor;
             }
 
             foreach (var tmp in tmpsForRecolor)
             {
-                tmp.color = normalColor;
+                tmp.color = _normalColor;
             }
         }
 
