@@ -11,6 +11,9 @@ namespace Yrr.UI.Animators
         [SerializeField] private Vector3 endPos;
         [SerializeField] private float duration;
 
+        [SerializeField] private bool needReturn;
+        [SerializeField] private float returnDuration;
+
 
         protected override Sequence GetSequence()
         {
@@ -18,8 +21,11 @@ namespace Yrr.UI.Animators
 
             var seq = DOTween.Sequence(gameObject).SetUpdate(true)
                 .Append(root.DOLocalMove(endPos, duration))
-
                 ;
+            if (needReturn)
+            {
+                seq.Append(root.DOLocalMove(startPos, returnDuration));
+            }
             return seq;
         }
 

@@ -138,6 +138,12 @@ namespace Yrr.Utils
             (list[indexA], list[indexB]) = (list[indexB], list[indexA]);
         }
 
+        public static void SwapWith<T>(this LinkedListNode<T> first, LinkedListNode<T> second)
+        {
+            var tmp = first.Value;
+            first.Value = second.Value;
+            second.Value = tmp;
+        }
         #endregion
 
 
@@ -153,7 +159,7 @@ namespace Yrr.Utils
             var str = value.ToString(CultureInfo.InvariantCulture);
             return str.Replace(",", ".");
         }
-       
+
         public static string ToShortMoneyString(this int value)
         {
             return ((ulong)value).ToShortMoneyString();

@@ -5,17 +5,12 @@ namespace Yrr.Utils
 {
     public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     {
-        public static bool isApplicationQuitting;
         private static T _instance;
-
 
         public static T Instance
         {
             get
-            {
-                if (isApplicationQuitting)
-                    return null;
-
+            {               
                 if (_instance == null)
                 {
                     _instance = FindObjectOfType<T>();
@@ -35,12 +30,6 @@ namespace Yrr.Utils
 
                 return _instance;
             }
-        }
-
-
-        public virtual void OnDestroy()
-        {
-            isApplicationQuitting = true;
         }
     }
 }

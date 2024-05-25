@@ -43,13 +43,12 @@ namespace Yrr.Utils
             _indexes = new Dictionary<TKey, int>();
             for (int i = 0; i < data.Count; i++)
             {
-                _indexes[data[i].Key] = i;
                 try
                 {
                     _indexes.Add(data[i].Key, i);
                 }
 
-                catch (ArgumentException)
+                catch
                 {
                     Debug.LogError($"Item {data[i].Key} has already been added");
                 }

@@ -36,5 +36,18 @@ namespace Yrr.UI.Animators
             root.localPosition = endPos;
             root.localScale = endScale;
         }
+
+
+        [ContextMenu("SetStartPos")]
+        public void SetStartPos()
+        {
+            startPos = transform.localPosition;
+        }
+
+        [ContextMenu("SetEndPos")]
+        public void SetEndPos()
+        {
+            endPos = transform.localPosition;
+        }
     }
 }
