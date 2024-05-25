@@ -41,11 +41,6 @@ namespace Yrr.Audio
         {
             foreach (var sound in _playingSounds)
             {
-                if (sound.volume <= 0)
-                {
-                    _removableSounds.Add(sound);
-                }
-
                 if (!sound.loop && sound.time >= sound.clip.length)
                 {
                     _removableSounds.Add(sound);
@@ -186,7 +181,7 @@ namespace Yrr.Audio
             first.SwapWith(last);
             if (fadeOutTime > 0)
             {
-                StartCoroutine(SetVolume(first.Value, 0f, fadeOutTime));
+                StartCoroutine(SetVolume(first.Value, 0f, fadeOutTime, true));
             }
 
             else
@@ -197,7 +192,7 @@ namespace Yrr.Audio
 
 
 
-        private IEnumerator SetVolume(AudioSource source, float targetVolume, float fadingDuration)
+        private IEnumerator SetVolume(AudioSource source, float targetVolume, float fadingDuration, bool killOnEnd = false)
         {
             var iteration = new WaitForEndOfFrame();
             var delta = Mathf.Abs(targetVolume - source.volume);
@@ -209,6 +204,12 @@ namespace Yrr.Audio
                 source.volume = Mathf.MoveTowards(source.volume,
                     targetVolume, stepValue * Time.unscaledDeltaTime);
                 yield return iteration;
+            }
+
+            if (killOnEnd)
+            {
+                source.Stop();
+                _removableSounds.Add(source);
             }
         }
     }
