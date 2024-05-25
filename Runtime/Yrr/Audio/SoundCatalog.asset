@@ -40,3 +40,9 @@ MonoBehaviour:
         ClipVolume: 0.37
         BasePitch: 1
         PitchRandom: 0.3
+    - Key: fx:scream
+      Value:
+      - Clip: {fileID: 8300000, guid: 09bedaf25d3d7794e95d1b74d23d57d7, type: 3}
+        ClipVolume: 0.2
+        BasePitch: 1
+        PitchRandom: 0.1
