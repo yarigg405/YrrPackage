@@ -17,12 +17,12 @@ namespace Yrr.Entitaz
             for (int i = 0; i < childrenComponents.Length; i++)
             {
                 var child = childrenComponents[i];
-                AddEntityComponent(child);
+                AddEntitaComponent(child);
             }
         }
 
 
-        public void AddEntityComponent(object component)
+        public void AddEntitaComponent(object component)
         {
             _components[component.GetType()] = component;
         }
