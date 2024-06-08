@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 namespace Yrr.UI.Elements
 {
-    public sealed class CustomButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerExitHandler
+    public sealed class CustomButton : MonoBehaviour, IPointerDownHandler, IPointerClickHandler, IPointerExitHandler
     {
         [SerializeField] public UnityEvent OnClick;
         [SerializeField] private CustomButtonEvents events;
@@ -60,7 +60,7 @@ namespace Yrr.UI.Elements
             SetNewState(CustomButtonStates.Pressed);
         }
 
-        void IPointerUpHandler.OnPointerUp(PointerEventData eventData)
+        void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
         {
             if (!_interactable) return;
             if (!_isPressed) return;
@@ -89,6 +89,8 @@ namespace Yrr.UI.Elements
         internal void ClickOnButton()
         {
             if (!_interactable) return;
+
+
 
             OnClick?.Invoke();
         }

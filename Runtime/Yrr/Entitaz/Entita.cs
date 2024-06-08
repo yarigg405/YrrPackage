@@ -27,17 +27,17 @@ namespace Yrr.Entitaz
             _components[component.GetType()] = component;
         }
 
-        void IEntita.AddEntityComponent(object component, Type componentType)
+        void IEntita.AddEntitaComponent(object component, Type componentType)
         {
             _components[componentType] = component;
         }
 
-        T IEntita.GetEntityComponent<T>()
+        T IEntita.GetEntitaComponent<T>()
         {
             return (T)_components[typeof(T)];
         }
 
-        bool IEntita.TryGetEntityComponent<T>(out T element)
+        bool IEntita.TryGetEntitaComponent<T>(out T element)
         {
             if (_components.TryGetValue(typeof(T), out var result))
             {

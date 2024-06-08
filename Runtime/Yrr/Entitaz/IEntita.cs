@@ -5,10 +5,10 @@ namespace Yrr.Entitaz
 {
     public interface IEntita
     {
-        T GetEntityComponent<T>();
+        T GetEntitaComponent<T>();
 
-        bool TryGetEntityComponent<T>(out T element);
+        bool TryGetEntitaComponent<T>(out T element);
 
-        void AddEntityComponent(object component, Type componentType);
+        void AddEntitaComponent(object component, Type componentType);
     }
 }
