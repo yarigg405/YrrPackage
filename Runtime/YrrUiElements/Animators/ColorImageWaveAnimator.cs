@@ -10,6 +10,7 @@ namespace Yrr.UI.Animators
         [SerializeField] private Image colorableImage;
         [SerializeField] private Color startColor;
         [SerializeField] private Color endColor;
+        [SerializeField] private bool needReturn;
 
         [SerializeField] private float duration;
 
@@ -20,7 +21,9 @@ namespace Yrr.UI.Animators
                 .Append(DOVirtual.Color(startColor, endColor, duration, (value) =>
                 {
                     colorableImage.color = value;
-                }))
+                }));
+            if (needReturn)
+                seq
                 .Append(DOVirtual.Color(endColor, startColor, duration, (value) =>
                 {
                     colorableImage.color = value;

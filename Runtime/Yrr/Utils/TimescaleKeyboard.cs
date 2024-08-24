@@ -16,7 +16,7 @@ namespace Yrr.Utils
 
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                SetTimescale(3f);
+                SetTimescale(0.5f);
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha3))
@@ -26,8 +26,6 @@ namespace Yrr.Utils
 
             if (Input.GetKeyDown(KeyCode.BackQuote))
             {
-
-
                 SetTimescale(_timeScale == 0f ? 1f : 0f);
             }
         }
