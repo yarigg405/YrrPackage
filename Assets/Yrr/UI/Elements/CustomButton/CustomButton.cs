@@ -1,0 +1,29 @@
+using UnityEngine.UI;
+using Yrr.Utils;
+
+
+namespace Yrr.UI.Elements
+{
+    public sealed class CustomButton : Button
+    {
+        public ReactiveValue<CustomButtonState> CurrentState { get; private set; } = new();
+
+        protected override void DoStateTransition(SelectionState state, bool instant)
+        {
+            base.DoStateTransition(state, instant);
+
+            var number = (int)state;
+            var buttonState = (CustomButtonState)number;
+            CurrentState.SetValue(buttonState);
+        }
+    }
+
+    public enum CustomButtonState
+    {
+        Normal,
+        Highlighted,
+        Pressed,
+        Selected,
+        Disabled,
+    }
+}
